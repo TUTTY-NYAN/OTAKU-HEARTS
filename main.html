@@ -1,0 +1,1369 @@
+<!DOCTYPE html>
+I<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="theme-color" content="#1a0b2e">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-title" content="OTAKU HEARTS">
+  <meta name="description" content="A running list of the anime you've watched and the ones still waiting.">
+  <title>OTAKU HEARTS</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Zen+Kaku+Gothic+New:wght@400;500;700;900&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
+
+    :root {
+      --paper: #1a0b2e;
+      --paper-2: #241041;
+      --card: #2a1552;
+      --ink: #f3e9ff;
+      --ink-soft: #c4a8e8;
+      --ink-faint: #8a6fb5;
+      --rule: #3d2266;
+      --accent: #7b2cbf;
+      --accent-2: #9d4edd;
+      --accent-ink: #ffffff;
+      --higan: #c1121f;
+      --higan-soft: #e63946;
+      --butterfly: #c77dff;
+      --butterfly-2: #9d4edd;
+      --shelf-1: #7b2cbf;
+      --shelf-2: #9d4edd;
+      --shelf-3: #c77dff;
+      --shelf-4: #5a189a;
+      --shelf-5: #3c096c;
+      --done: #4a3a6b;
+      --shell-max: 460px;
+      --safe-b: env(safe-area-inset-bottom, 0px);
+      --safe-t: env(safe-area-inset-top, 0px);
+    }
+
+    @media (prefers-color-scheme: light) {
+      :root:not([data-theme="dark"]) {
+        --paper: #f3e9ff;
+        --paper-2: #e9dcff;
+        --card: #ffffff;
+        --ink: #1a0b2e;
+        --ink-soft: #5a3d8a;
+        --ink-faint: #8a6fb5;
+        --rule: #d4c2f0;
+        --accent: #7b2cbf;
+        --accent-2: #9d4edd;
+        --accent-ink: #ffffff;
+        --shelf-1: #7b2cbf;
+        --shelf-2: #9d4edd;
+        --shelf-3: #c77dff;
+        --shelf-4: #5a189a;
+        --shelf-5: #3c096c;
+        --done: #b8a8d4;
+      }
+    }
+
+    :root[data-theme="light"] {
+      --paper: #f3e9ff;
+      --paper-2: #e9dcff;
+      --card: #ffffff;
+      --ink: #1a0b2e;
+      --ink-soft: #5a3d8a;
+      --ink-faint: #8a6fb5;
+      --rule: #d4c2f0;
+      --accent: #7b2cbf;
+      --accent-2: #9d4edd;
+      --accent-ink: #ffffff;
+      --shelf-1: #7b2cbf;
+      --shelf-2: #9d4edd;
+      --shelf-3: #c77dff;
+      --shelf-4: #5a189a;
+      --shelf-5: #3c096c;
+      --done: #b8a8d4;
+    }
+
+    html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
+    html, body { height: 100%; }
+
+    body {
+      background: var(--paper);
+      color: var(--ink);
+      font-family: 'Zen Kaku Gothic New', 'Hiragino Sans', system-ui, -apple-system, 'Segoe UI', sans-serif;
+      line-height: 1.45;
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+    }
+
+    .bg {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      overflow: hidden;
+      z-index: 0;
+    }
+
+    .bg::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse at 50% 0%, var(--paper-2) 0%, var(--paper) 55%);
+    }
+
+    .higan {
+      position: absolute;
+      opacity: 0.35;
+      filter: drop-shadow(0 0 14px rgba(193, 18, 31, 0.5));
+    }
+
+    .higan-1 {
+      top: -40px;
+      left: -70px;
+      width: 200px;
+      height: 250px;
+      transform-origin: 50% 90%;
+      animation: sway1 9s ease-in-out infinite;
+    }
+
+    .higan-2 {
+      bottom: -50px;
+      right: -80px;
+      width: 230px;
+      height: 280px;
+      transform-origin: 50% 90%;
+      animation: sway2 11s ease-in-out infinite;
+    }
+
+    .higan-3 {
+      top: 45%;
+      right: -50px;
+      width: 140px;
+      height: 175px;
+      opacity: 0.22;
+      transform-origin: 50% 90%;
+      animation: sway1 13s ease-in-out infinite reverse;
+    }
+
+    .higan-4 {
+      bottom: 12%;
+      left: -55px;
+      width: 150px;
+      height: 190px;
+      opacity: 0.2;
+      transform-origin: 50% 90%;
+      animation: sway2 10s ease-in-out infinite reverse;
+    }
+
+    @keyframes sway1 {
+      0%, 100% { transform: rotate(-14deg) translateY(0); }
+      50%      { transform: rotate(-8deg) translateY(-10px); }
+    }
+
+    @keyframes sway2 {
+      0%, 100% { transform: rotate(165deg) translateY(0); }
+      50%      { transform: rotate(158deg) translateY(-12px); }
+    }
+
+    .bfly {
+      position: absolute;
+      opacity: 0;
+      filter: drop-shadow(0 0 10px rgba(199, 125, 255, 0.85));
+      will-change: transform, opacity;
+    }
+
+    .bfly-1 { width: 32px; height: 28px; top: 15%; left: 10%; animation: fly1 14s linear infinite; }
+    .bfly-2 { width: 24px; height: 21px; top: 58%; right: 12%; animation: fly2 17s linear infinite; animation-delay: -4s; }
+    .bfly-3 { width: 20px; height: 18px; top: 34%; right: 6%;  animation: fly3 16s linear infinite; animation-delay: -8s; }
+    .bfly-4 { width: 28px; height: 25px; bottom: 18%; left: 8%; animation: fly4 19s linear infinite; animation-delay: -11s; }
+    .bfly-5 { width: 18px; height: 16px; top: 72%; left: 30%; animation: fly3 15s linear infinite; animation-delay: -6s; }
+    .bfly-6 { width: 22px; height: 19px; top: 8%;  right: 28%; animation: fly2 18s linear infinite; animation-delay: -13s; }
+
+    @keyframes fly1 {
+      0%   { transform: translate(0, 0) rotate(0deg) scale(1); opacity: 0; }
+      8%   { opacity: 0.9; }
+      25%  { transform: translate(60px, -40px) rotate(18deg) scale(1.1); opacity: 0.9; }
+      50%  { transform: translate(120px, 20px) rotate(-12deg) scale(0.95); opacity: 0.7; }
+      75%  { transform: translate(50px, 70px) rotate(22deg) scale(1.05); opacity: 0.85; }
+      92%  { opacity: 0.5; }
+      100% { transform: translate(-30px, 130px) rotate(0deg) scale(1); opacity: 0; }
+    }
+
+    @keyframes fly2 {
+      0%   { transform: translate(0, 0) rotate(0deg); opacity: 0; }
+      10%  { opacity: 0.85; }
+      30%  { transform: translate(-70px, -50px) rotate(-22deg); opacity: 0.85; }
+      55%  { transform: translate(-130px, 30px) rotate(12deg); opacity: 0.65; }
+      80%  { transform: translate(-40px, 80px) rotate(-18deg); opacity: 0.85; }
+      92%  { opacity: 0.5; }
+      100% { transform: translate(30px, 140px) rotate(0deg); opacity: 0; }
+    }
+
+    @keyframes fly3 {
+      0%   { transform: translate(0, 0) rotate(0deg) scale(1); opacity: 0; }
+      12%  { opacity: 0.8; }
+      40%  { transform: translate(-80px, 40px) rotate(28deg) scale(1.15); opacity: 0.8; }
+      70%  { transform: translate(-30px, -70px) rotate(-22deg) scale(0.9); opacity: 0.7; }
+      92%  { opacity: 0.5; }
+      100% { transform: translate(60px, -140px) rotate(0deg) scale(1); opacity: 0; }
+    }
+
+    @keyframes fly4 {
+      0%   { transform: translate(0, 0) rotate(0deg); opacity: 0; }
+      10%  { opacity: 0.9; }
+      35%  { transform: translate(90px, -60px) rotate(20deg); opacity: 0.9; }
+      60%  { transform: translate(140px, 40px) rotate(-14deg); opacity: 0.65; }
+      85%  { transform: translate(60px, 90px) rotate(24deg); opacity: 0.85; }
+      92%  { opacity: 0.4; }
+      100% { transform: translate(-40px, 160px) rotate(0deg); opacity: 0; }
+    }
+
+    .shell {
+      max-width: var(--shell-max);
+      margin: 0 auto;
+      min-height: 100vh;
+      min-height: 100dvh;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+      z-index: 1;
+    }
+
+    @media (min-width: 620px) {
+      body { background: #0f0619; }
+      .shell {
+        border-left: 1px solid var(--rule);
+        border-right: 1px solid var(--rule);
+        box-shadow: 0 0 80px rgba(123, 44, 191, 0.25);
+      }
+    }
+
+    header { padding: calc(1.5rem + var(--safe-t)) 1.25rem 0.9rem; }
+
+    .mark { display: flex; align-items: baseline; gap: 0.5rem; }
+
+    h1 {
+      font-size: 1.6rem;
+      font-weight: 900;
+      letter-spacing: -0.03em;
+      line-height: 1;
+      background: linear-gradient(135deg, var(--ink) 20%, var(--butterfly) 60%, var(--higan-soft) 100%);
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .mark span {
+      font-size: 0.85rem;
+      font-weight: 500;
+      color: var(--ink-faint);
+      letter-spacing: 0.08em;
+    }
+
+    .tally {
+      margin-top: 0.85rem;
+      font-size: 0.95rem;
+      color: var(--ink-soft);
+      font-weight: 500;
+    }
+
+    .tally b { color: var(--ink); font-weight: 900; }
+
+    .meter {
+      margin-top: 0.6rem;
+      height: 6px;
+      border-radius: 6px;
+      background: var(--rule);
+      overflow: hidden;
+    }
+
+    .meter i {
+      display: block;
+      height: 100%;
+      width: 0;
+      background: linear-gradient(90deg, var(--accent), var(--accent-2));
+      border-radius: 6px;
+      transition: width 0.5s cubic-bezier(.2,.7,.3,1);
+    }
+
+    nav {
+      display: flex;
+      gap: 1.4rem;
+      padding: 0.9rem 1.25rem 0;
+      border-bottom: 1px solid var(--rule);
+      position: sticky;
+      top: 0;
+      background: color-mix(in srgb, var(--paper) 85%, transparent);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      z-index: 5;
+    }
+
+    nav button {
+      appearance: none;
+      background: none;
+      border: none;
+      font: inherit;
+      font-weight: 700;
+      font-size: 0.95rem;
+      color: var(--ink-faint);
+      padding: 0.35rem 0 0.7rem;
+      cursor: pointer;
+      position: relative;
+      min-height: 44px;
+      transition: color 0.2s ease, transform 0.2s ease;
+    }
+
+    nav button:hover {
+      color: var(--butterfly);
+      transform: translateY(-1px);
+    }
+
+    nav button[aria-selected="true"] { color: var(--ink); }
+
+    nav button[aria-selected="true"]:hover {
+      color: var(--ink);
+      transform: translateY(-1px);
+    }
+
+    nav button[aria-selected="true"]::after {
+      content: "";
+      position: absolute;
+      left: 0; right: 0; bottom: -1px;
+      height: 3px;
+      background: linear-gradient(90deg, var(--accent), var(--accent-2));
+      border-radius: 3px 3px 0 0;
+    }
+
+    nav button:focus-visible { outline: 2px solid var(--butterfly); outline-offset: 2px; border-radius: 4px; }
+
+    main { flex: 1; padding: 0.9rem 1.25rem 1.5rem; }
+
+    ul { list-style: none; display: flex; flex-direction: column; gap: 0.55rem; }
+
+    li {
+      display: flex;
+      align-items: stretch;
+      background: color-mix(in srgb, var(--card) 92%, transparent);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      border-radius: 4px 12px 12px 4px;
+      overflow: hidden;
+      border: 1px solid var(--rule);
+      transition: background 0.2s, border-color 0.2s, transform 0.2s, box-shadow 0.2s;
+    }
+
+    li:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 6px 18px rgba(123, 44, 191, 0.25);
+      border-color: var(--accent);
+    }
+
+    .spine { width: 6px; flex: none; background: var(--spine, var(--shelf-2)); transition: background 0.2s; }
+
+    li.done .spine { background: var(--done); }
+
+    .cover {
+      flex: none;
+      width: 46px;
+      height: 62px;
+      margin: 0.6rem 0 0.6rem 0.7rem;
+      border-radius: 3px 7px 7px 3px;
+      background: var(--spine, var(--shelf-2));
+      border: none;
+      padding: 0;
+      overflow: hidden;
+      cursor: pointer;
+      display: grid;
+      place-items: center;
+      color: #fff;
+      font-family: inherit;
+      font-size: 1.35rem;
+      font-weight: 900;
+      line-height: 1;
+      box-shadow: inset -4px 0 8px rgba(0, 0, 0, 0.25);
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .cover:hover {
+      transform: scale(1.06) rotate(-1deg);
+      box-shadow: inset -4px 0 8px rgba(0, 0, 0, 0.25), 0 4px 14px rgba(123, 44, 191, 0.5);
+    }
+
+    .cover img { width: 100%; height: 100%; object-fit: cover; display: block; }
+
+    li.done .cover { background: var(--done); }
+    li.done .cover img { filter: grayscale(0.7); opacity: 0.75; }
+
+    .cover:focus-visible { outline: 2px solid var(--butterfly); outline-offset: 2px; }
+
+    .body {
+      flex: 1;
+      min-width: 0;
+      padding: 0.75rem 0.5rem 0.75rem 0.8rem;
+    }
+
+    .title {
+      font-weight: 700;
+      font-size: 1rem;
+      letter-spacing: -0.01em;
+      overflow-wrap: anywhere;
+      transition: color 0.2s ease;
+    }
+
+    li:hover .title { color: var(--butterfly); }
+
+    li.done .title { color: var(--ink-faint); }
+
+    .runtime {
+      font-size: 0.82rem;
+      color: var(--ink-soft);
+      margin-top: 0.15rem;
+    }
+
+    li.done .runtime { color: var(--ink-faint); }
+
+    .controls { display: flex; align-items: center; padding-right: 0.5rem; flex: none; }
+
+    .check, .drop {
+      appearance: none;
+      border: none;
+      background: none;
+      font: inherit;
+      cursor: pointer;
+      width: 44px;
+      height: 44px;
+      display: grid;
+      place-items: center;
+      color: var(--ink-faint);
+      border-radius: 50%;
+      transition: color 0.2s ease, background 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .check {
+      border: 2px solid var(--rule);
+      width: 30px; height: 30px;
+      margin-right: 0.35rem;
+      color: transparent;
+      font-size: 0.9rem;
+      font-weight: 900;
+      line-height: 1;
+      transition: background 0.2s ease, border-color 0.2s ease, color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .check-wrap { width: 44px; height: 44px; display: grid; place-items: center; }
+
+    .check:hover {
+      border-color: var(--butterfly);
+      background: rgba(199, 125, 255, 0.12);
+      transform: scale(1.1);
+      box-shadow: 0 0 12px rgba(199, 125, 255, 0.4);
+    }
+
+    li.done .check {
+      background: linear-gradient(135deg, var(--accent), var(--accent-2));
+      border-color: var(--accent);
+      color: var(--accent-ink);
+    }
+
+    li.done .check:hover {
+      transform: scale(1.1);
+      box-shadow: 0 0 16px rgba(123, 44, 191, 0.7);
+    }
+
+    .drop { font-size: 1.25rem; line-height: 1; }
+    .drop:hover {
+      color: var(--higan-soft);
+      background: rgba(230, 57, 70, 0.12);
+      transform: scale(1.1) rotate(90deg);
+      box-shadow: 0 0 12px rgba(230, 57, 70, 0.4);
+    }
+
+    .check:focus-visible, .drop:focus-visible { outline: 2px solid var(--butterfly); outline-offset: 2px; }
+
+    li.confirming {
+      background: color-mix(in srgb, var(--higan) 15%, var(--card));
+      border-color: var(--higan);
+    }
+
+    li.confirming:hover {
+      transform: none;
+      box-shadow: 0 0 20px rgba(193, 18, 31, 0.4);
+    }
+
+    .confirm {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.6rem;
+      padding: 0.7rem 0.75rem 0.7rem 0.85rem;
+      font-size: 0.9rem;
+      color: var(--ink);
+      min-width: 0;
+    }
+
+    .confirm p { min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+
+    .confirm div { display: flex; gap: 0.4rem; flex: none; }
+
+    .confirm button {
+      appearance: none;
+      font: inherit;
+      font-weight: 700;
+      font-size: 0.85rem;
+      border-radius: 8px;
+      padding: 0.5rem 0.8rem;
+      min-height: 40px;
+      cursor: pointer;
+      border: 1px solid var(--rule);
+      background: var(--card);
+      color: var(--ink);
+      transition: background 0.2s, border-color 0.2s, transform 0.2s, box-shadow 0.2s;
+    }
+
+    .confirm button:hover {
+      transform: translateY(-1px);
+      border-color: var(--butterfly);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    }
+
+    .confirm button.yes {
+      background: var(--higan);
+      border-color: var(--higan);
+      color: #ffffff;
+    }
+
+    .confirm button.yes:hover {
+      background: var(--higan-soft);
+      border-color: var(--higan-soft);
+      box-shadow: 0 4px 16px rgba(230, 57, 70, 0.5);
+    }
+
+    .confirm button:focus-visible { outline: 2px solid var(--butterfly); outline-offset: 2px; }
+
+    .empty {
+      padding: 2.5rem 0.25rem;
+      color: var(--ink-soft);
+      font-size: 0.95rem;
+      border-top: 1px solid var(--rule);
+      margin-top: 0.2rem;
+      text-align: center;
+    }
+
+    .empty b {
+      display: block;
+      color: var(--ink);
+      font-size: 1.05rem;
+      font-weight: 900;
+      margin-bottom: 0.25rem;
+      background: linear-gradient(135deg, var(--ink) 20%, var(--butterfly) 100%);
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .bar {
+      position: sticky;
+      bottom: 0;
+      padding: 0.65rem 1.25rem calc(0.65rem + var(--safe-b));
+      background: linear-gradient(to top, var(--paper) 72%, transparent);
+    }
+
+    .bar button {
+      position: relative;
+      width: 100%;
+      appearance: none;
+      border: none;
+      font: inherit;
+      font-weight: 900;
+      font-size: 1rem;
+      letter-spacing: 0.06em;
+      color: var(--accent-ink);
+      background: linear-gradient(135deg, var(--accent), var(--accent-2));
+      border-radius: 12px;
+      min-height: 52px;
+      cursor: pointer;
+      overflow: hidden;
+      isolation: isolate;
+      box-shadow: 0 6px 24px rgba(123, 44, 191, 0.45);
+      transition:
+        transform 0.25s cubic-bezier(.2,.8,.3,1),
+        box-shadow 0.3s ease,
+        letter-spacing 0.3s ease;
+    }
+
+    .bar button::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: -75%;
+      width: 50%;
+      height: 100%;
+      background: linear-gradient(
+        120deg,
+        transparent 0%,
+        rgba(255, 255, 255, 0.15) 40%,
+        rgba(255, 255, 255, 0.45) 50%,
+        rgba(255, 255, 255, 0.15) 60%,
+        transparent 100%
+      );
+      transform: skewX(-20deg);
+      transition: left 0.7s cubic-bezier(.2,.8,.3,1);
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    .bar button::after {
+      content: "";
+      position: absolute;
+      inset: -2px;
+      border-radius: 14px;
+      background: linear-gradient(135deg, var(--butterfly), var(--accent-2), var(--accent));
+      opacity: 0;
+      filter: blur(14px);
+      z-index: -1;
+      transition: opacity 0.35s ease;
+      pointer-events: none;
+    }
+
+    .bar button:hover {
+      transform: translateY(-2px) scale(1.02);
+      letter-spacing: 0.1em;
+      box-shadow:
+        0 12px 40px rgba(123, 44, 191, 0.7),
+        0 0 0 1px rgba(199, 125, 255, 0.5) inset;
+    }
+
+    .bar button:hover::before {
+      left: 125%;
+    }
+
+    .bar button:hover::after {
+      opacity: 0.9;
+    }
+
+    .bar button:active {
+      transform: translateY(0) scale(0.99);
+      transition-duration: 0.08s;
+    }
+
+    .bar button:focus-visible { outline: 2px solid var(--butterfly); outline-offset: 3px; }
+
+    .scrim {
+      position: fixed;
+      inset: 0;
+      background: rgba(10, 5, 20, 0.7);
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.2s ease;
+      z-index: 20;
+    }
+
+    .scrim.open { opacity: 1; pointer-events: auto; }
+
+    .sheet {
+      position: fixed;
+      left: 50%;
+      bottom: 0;
+      width: min(100%, var(--shell-max));
+      transform: translate(-50%, 102%);
+      background: var(--card);
+      border-radius: 18px 18px 0 0;
+      padding: 1.1rem 1.25rem calc(1.25rem + var(--safe-b));
+      z-index: 21;
+      transition: transform 0.26s cubic-bezier(.2,.8,.25,1);
+      box-shadow: 0 -12px 40px rgba(10, 14, 28, 0.5);
+      border-top: 1px solid var(--rule);
+    }
+
+    .sheet.open { transform: translate(-50%, 0); }
+
+    .grab { width: 38px; height: 4px; border-radius: 4px; background: var(--rule); margin: 0 auto 0.9rem; }
+
+    .sheet h2 {
+      font-size: 1.15rem;
+      font-weight: 900;
+      letter-spacing: -0.02em;
+      margin-bottom: 0.9rem;
+      background: linear-gradient(135deg, var(--ink) 20%, var(--butterfly) 100%);
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .field { margin-bottom: 0.8rem; }
+
+    .field label { display: block; font-size: 0.85rem; font-weight: 700; color: var(--ink-soft); margin-bottom: 0.3rem; }
+
+    .field input {
+      width: 100%;
+      font: inherit;
+      font-size: 16px;
+      color: var(--ink);
+      background: var(--paper);
+      border: 1.5px solid var(--rule);
+      border-radius: 10px;
+      padding: 0.75rem 0.85rem;
+      min-height: 48px;
+      transition: border-color 0.2s, box-shadow 0.2s, transform 0.2s;
+    }
+
+    .field input:hover {
+      border-color: var(--butterfly-2);
+    }
+
+    .field input:focus {
+      outline: none;
+      border-color: var(--butterfly);
+      box-shadow: 0 0 0 3px rgba(199, 125, 255, 0.2);
+      transform: translateY(-1px);
+    }
+    .field input::placeholder { color: var(--ink-faint); }
+    .field input[type=number]::-webkit-inner-spin-button { -webkit-appearance: none; }
+    .field input[type=number] { -moz-appearance: textfield; appearance: textfield; }
+
+    .pair { display: grid; grid-template-columns: 1fr 1fr; gap: 0.7rem; }
+
+    .cover-row { display: flex; align-items: center; gap: 0.8rem; margin-bottom: 0.9rem; }
+
+    .cover-pick {
+      flex: none;
+      width: 58px;
+      height: 78px;
+      border-radius: 3px 8px 8px 3px;
+      border: 1.5px dashed var(--rule);
+      background: var(--paper);
+      color: var(--ink-faint);
+      display: grid;
+      place-items: center;
+      overflow: hidden;
+      padding: 0;
+      cursor: pointer;
+      font: inherit;
+      font-size: 1.5rem;
+      font-weight: 900;
+      transition: border-color 0.2s, transform 0.2s, box-shadow 0.2s;
+    }
+
+    .cover-pick:hover {
+      border-color: var(--butterfly);
+      color: var(--butterfly);
+      transform: scale(1.05);
+      box-shadow: 0 0 14px rgba(199, 125, 255, 0.4);
+    }
+
+    .cover-pick.filled { border-style: solid; border-color: var(--rule); }
+    .cover-pick img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .cover-pick:focus-visible { outline: 2px solid var(--butterfly); outline-offset: 2px; }
+
+    .cover-note { font-size: 0.85rem; color: var(--ink-soft); min-width: 0; }
+    .cover-note b { display: block; color: var(--ink); font-weight: 700; margin-bottom: 0.1rem; }
+
+    .cover-note button {
+      appearance: none;
+      background: none;
+      border: none;
+      font: inherit;
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: var(--higan-soft);
+      cursor: pointer;
+      padding: 0.35rem 0 0;
+      text-decoration: underline;
+      transition: color 0.2s, transform 0.2s;
+    }
+
+    .cover-note button:hover {
+      color: var(--higan);
+      transform: translateX(2px);
+    }
+
+    .sheet-actions { display: grid; grid-template-columns: 1fr 1.4fr; gap: 0.6rem; margin-top: 1rem; }
+
+    .sheet-actions button {
+      appearance: none;
+      font: inherit;
+      font-weight: 700;
+      font-size: 1rem;
+      min-height: 50px;
+      border-radius: 12px;
+      cursor: pointer;
+      transition: transform 0.2s, background 0.2s, box-shadow 0.2s, border-color 0.2s;
+    }
+
+    .sheet-actions .cancel {
+      background: transparent;
+      border: 1.5px solid var(--rule);
+      color: var(--ink-soft);
+    }
+
+    .sheet-actions .cancel:hover {
+      border-color: var(--butterfly);
+      color: var(--butterfly);
+      background: rgba(199, 125, 255, 0.08);
+      transform: translateY(-1px);
+      box-shadow: 0 4px 14px rgba(199, 125, 255, 0.25);
+    }
+
+    .sheet-actions .save {
+      background: linear-gradient(135deg, var(--accent), var(--accent-2));
+      border: none;
+      color: var(--accent-ink);
+      box-shadow: 0 6px 24px rgba(123, 44, 191, 0.45);
+    }
+
+    .sheet-actions .save:hover {
+      box-shadow: 0 8px 32px rgba(123, 44, 191, 0.7);
+      transform: translateY(-2px);
+    }
+
+    .sheet-actions button:focus-visible { outline: 2px solid var(--butterfly); outline-offset: 2px; }
+    .sheet-actions button:active { transform: translateY(1px); }
+
+    @media (prefers-reduced-motion: reduce) {
+      * { transition-duration: 0.01ms !important; animation-duration: 0.01ms !important; }
+      .bfly { display: none; }
+      .higan { animation: none; }
+      .bar button::before { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="bg" aria-hidden="true">
+
+  <svg class="higan higan-1" viewBox="0 0 100 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <g stroke="#c1121f" stroke-width="1.2" fill="none">
+      <path d="M50 115 Q50 80 50 55" stroke="#780000" stroke-width="2"/>
+      <path d="M50 55 Q50 40 30 20" stroke="#c1121f"/>
+      <path d="M50 55 Q50 40 70 20" stroke="#c1121f"/>
+      <path d="M50 55 Q35 45 15 45" stroke="#c1121f"/>
+      <path d="M50 55 Q65 45 85 45" stroke="#c1121f"/>
+      <path d="M50 55 Q40 40 35 15" stroke="#c1121f"/>
+      <path d="M50 55 Q60 40 65 15" stroke="#c1121f"/>
+      <path d="M50 55 Q25 50 5 55" stroke="#c1121f"/>
+      <path d="M50 55 Q75 50 95 55" stroke="#c1121f"/>
+      <path d="M30 20 Q22 8 30 5" stroke="#e63946"/>
+      <path d="M70 20 Q78 8 70 5" stroke="#e63946"/>
+      <path d="M15 45 Q2 40 5 30" stroke="#e63946"/>
+      <path d="M85 45 Q98 40 95 30" stroke="#e63946"/>
+      <path d="M35 15 Q28 0 38 2" stroke="#e63946"/>
+      <path d="M65 15 Q72 0 62 2" stroke="#e63946"/>
+      <path d="M5 55 Q-5 55 0 45" stroke="#e63946"/>
+      <path d="M95 55 Q105 55 100 45" stroke="#e63946"/>
+      <path d="M50 55 L45 65" stroke="#c1121f"/>
+      <path d="M50 55 L55 65" stroke="#c1121f"/>
+      <path d="M50 55 L42 62" stroke="#c1121f"/>
+      <path d="M50 55 L58 62" stroke="#c1121f"/>
+      <circle cx="45" cy="66" r="1.5" fill="#e63946"/>
+      <circle cx="55" cy="66" r="1.5" fill="#e63946"/>
+      <circle cx="42" cy="63" r="1" fill="#e63946"/>
+      <circle cx="58" cy="63" r="1" fill="#e63946"/>
+    </g>
+  </svg>
+
+  <svg class="higan higan-2" viewBox="0 0 100 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <g stroke="#c1121f" stroke-width="1.2" fill="none">
+      <path d="M50 115 Q50 80 50 55" stroke="#780000" stroke-width="2"/>
+      <path d="M50 55 Q50 40 30 20" stroke="#c1121f"/>
+      <path d="M50 55 Q50 40 70 20" stroke="#c1121f"/>
+      <path d="M50 55 Q35 45 15 45" stroke="#c1121f"/>
+      <path d="M50 55 Q65 45 85 45" stroke="#c1121f"/>
+      <path d="M50 55 Q40 40 35 15" stroke="#c1121f"/>
+      <path d="M50 55 Q60 40 65 15" stroke="#c1121f"/>
+      <path d="M50 55 Q25 50 5 55" stroke="#c1121f"/>
+      <path d="M50 55 Q75 50 95 55" stroke="#c1121f"/>
+      <path d="M30 20 Q22 8 30 5" stroke="#e63946"/>
+      <path d="M70 20 Q78 8 70 5" stroke="#e63946"/>
+      <path d="M15 45 Q2 40 5 30" stroke="#e63946"/>
+      <path d="M85 45 Q98 40 95 30" stroke="#e63946"/>
+      <path d="M35 15 Q28 0 38 2" stroke="#e63946"/>
+      <path d="M65 15 Q72 0 62 2" stroke="#e63946"/>
+      <path d="M5 55 Q-5 55 0 45" stroke="#e63946"/>
+      <path d="M95 55 Q105 55 100 45" stroke="#e63946"/>
+      <path d="M50 55 L45 65" stroke="#c1121f"/>
+      <path d="M50 55 L55 65" stroke="#c1121f"/>
+      <path d="M50 55 L42 62" stroke="#c1121f"/>
+      <path d="M50 55 L58 62" stroke="#c1121f"/>
+      <circle cx="45" cy="66" r="1.5" fill="#e63946"/>
+      <circle cx="55" cy="66" r="1.5" fill="#e63946"/>
+      <circle cx="42" cy="63" r="1" fill="#e63946"/>
+      <circle cx="58" cy="63" r="1" fill="#e63946"/>
+    </g>
+  </svg>
+
+  <svg class="higan higan-3" viewBox="0 0 100 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <g stroke="#c1121f" stroke-width="1.2" fill="none">
+      <path d="M50 115 Q50 80 50 55" stroke="#780000" stroke-width="2"/>
+      <path d="M50 55 Q50 40 30 20" stroke="#c1121f"/>
+      <path d="M50 55 Q50 40 70 20" stroke="#c1121f"/>
+      <path d="M50 55 Q35 45 15 45" stroke="#c1121f"/>
+      <path d="M50 55 Q65 45 85 45" stroke="#c1121f"/>
+      <path d="M50 55 Q40 40 35 15" stroke="#c1121f"/>
+      <path d="M50 55 Q60 40 65 15" stroke="#c1121f"/>
+      <path d="M50 55 Q25 50 5 55" stroke="#c1121f"/>
+      <path d="M50 55 Q75 50 95 55" stroke="#c1121f"/>
+      <path d="M30 20 Q22 8 30 5" stroke="#e63946"/>
+      <path d="M70 20 Q78 8 70 5" stroke="#e63946"/>
+      <path d="M15 45 Q2 40 5 30" stroke="#e63946"/>
+      <path d="M85 45 Q98 40 95 30" stroke="#e63946"/>
+      <path d="M50 55 L45 65" stroke="#c1121f"/>
+      <path d="M50 55 L55 65" stroke="#c1121f"/>
+      <circle cx="45" cy="66" r="1.5" fill="#e63946"/>
+      <circle cx="55" cy="66" r="1.5" fill="#e63946"/>
+    </g>
+  </svg>
+
+  <svg class="higan higan-4" viewBox="0 0 100 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <g stroke="#c1121f" stroke-width="1.2" fill="none">
+      <path d="M50 115 Q50 80 50 55" stroke="#780000" stroke-width="2"/>
+      <path d="M50 55 Q50 40 30 20" stroke="#c1121f"/>
+      <path d="M50 55 Q50 40 70 20" stroke="#c1121f"/>
+      <path d="M50 55 Q35 45 15 45" stroke="#c1121f"/>
+      <path d="M50 55 Q65 45 85 45" stroke="#c1121f"/>
+      <path d="M50 55 Q40 40 35 15" stroke="#c1121f"/>
+      <path d="M50 55 Q60 40 65 15" stroke="#c1121f"/>
+      <path d="M50 55 Q25 50 5 55" stroke="#c1121f"/>
+      <path d="M50 55 Q75 50 95 55" stroke="#c1121f"/>
+      <path d="M30 20 Q22 8 30 5" stroke="#e63946"/>
+      <path d="M70 20 Q78 8 70 5" stroke="#e63946"/>
+      <path d="M15 45 Q2 40 5 30" stroke="#e63946"/>
+      <path d="M85 45 Q98 40 95 30" stroke="#e63946"/>
+      <path d="M50 55 L45 65" stroke="#c1121f"/>
+      <path d="M50 55 L55 65" stroke="#c1121f"/>
+      <circle cx="45" cy="66" r="1.5" fill="#e63946"/>
+      <circle cx="55" cy="66" r="1.5" fill="#e63946"/>
+    </g>
+  </svg>
+
+  <svg class="bfly bfly-1" viewBox="0 0 40 34" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M20 17 C10 5, 0 8, 4 16 C6 20, 14 20, 20 17 Z" fill="#c77dff" opacity="0.95"/>
+    <path d="M20 17 C30 5, 40 8, 36 16 C34 20, 26 20, 20 17 Z" fill="#c77dff" opacity="0.95"/>
+    <path d="M20 17 C13 24, 5 26, 7 20 C8 17, 15 17, 20 17 Z" fill="#7b2cbf" opacity="0.9"/>
+    <path d="M20 17 C27 24, 35 26, 33 20 C32 17, 25 17, 20 17 Z" fill="#7b2cbf" opacity="0.9"/>
+    <line x1="20" y1="10" x2="20" y2="24" stroke="#f3e9ff" stroke-width="1.2" stroke-linecap="round"/>
+    <circle cx="20" cy="17" r="1.5" fill="#5a189a"/>
+  </svg>
+
+  <svg class="bfly bfly-2" viewBox="0 0 40 34" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M20 17 C10 5, 0 8, 4 16 C6 20, 14 20, 20 17 Z" fill="#9d4edd" opacity="0.95"/>
+    <path d="M20 17 C30 5, 40 8, 36 16 C34 20, 26 20, 20 17 Z" fill="#9d4edd" opacity="0.95"/>
+    <path d="M20 17 C13 24, 5 26, 7 20 C8 17, 15 17, 20 17 Z" fill="#5a189a" opacity="0.9"/>
+    <path d="M20 17 C27 24, 35 26, 33 20 C32 17, 25 17, 20 17 Z" fill="#5a189a" opacity="0.9"/>
+    <line x1="20" y1="10" x2="20" y2="24" stroke="#f3e9ff" stroke-width="1.2" stroke-linecap="round"/>
+    <circle cx="20" cy="17" r="1.5" fill="#3c096c"/>
+  </svg>
+
+  <svg class="bfly bfly-3" viewBox="0 0 40 34" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M20 17 C10 5, 0 8, 4 16 C6 20, 14 20, 20 17 Z" fill="#e0aaff" opacity="0.95"/>
+    <path d="M20 17 C30 5, 40 8, 36 16 C34 20, 26 20, 20 17 Z" fill="#e0aaff" opacity="0.95"/>
+    <path d="M20 17 C13 24, 5 26, 7 20 C8 17, 15 17, 20 17 Z" fill="#7b2cbf" opacity="0.9"/>
+    <path d="M20 17 C27 24, 35 26, 33 20 C32 17, 25 17, 20 17 Z" fill="#7b2cbf" opacity="0.9"/>
+    <line x1="20" y1="10" x2="20" y2="24" stroke="#f3e9ff" stroke-width="1.2" stroke-linecap="round"/>
+    <circle cx="20" cy="17" r="1.5" fill="#5a189a"/>
+  </svg>
+
+  <svg class="bfly bfly-4" viewBox="0 0 40 34" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M20 17 C10 5, 0 8, 4 16 C6 20, 14 20, 20 17 Z" fill="#c77dff" opacity="0.95"/>
+    <path d="M20 17 C30 5, 40 8, 36 16 C34 20, 26 20, 20 17 Z" fill="#c77dff" opacity="0.95"/>
+    <path d="M20 17 C13 24, 5 26, 7 20 C8 17, 15 17, 20 17 Z" fill="#3c096c" opacity="0.9"/>
+    <path d="M20 17 C27 24, 35 26, 33 20 C32 17, 25 17, 20 17 Z" fill="#3c096c" opacity="0.9"/>
+    <line x1="20" y1="10" x2="20" y2="24" stroke="#f3e9ff" stroke-width="1.2" stroke-linecap="round"/>
+    <circle cx="20" cy="17" r="1.5" fill="#5a189a"/>
+  </svg>
+
+  <svg class="bfly bfly-5" viewBox="0 0 40 34" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M20 17 C10 5, 0 8, 4 16 C6 20, 14 20, 20 17 Z" fill="#b14aff" opacity="0.95"/>
+    <path d="M20 17 C30 5, 40 8, 36 16 C34 20, 26 20, 20 17 Z" fill="#b14aff" opacity="0.95"/>
+    <path d="M20 17 C13 24, 5 26, 7 20 C8 17, 15 17, 20 17 Z" fill="#5a189a" opacity="0.9"/>
+    <path d="M20 17 C27 24, 35 26, 33 20 C32 17, 25 17, 20 17 Z" fill="#5a189a" opacity="0.9"/>
+    <line x1="20" y1="10" x2="20" y2="24" stroke="#f3e9ff" stroke-width="1.2" stroke-linecap="round"/>
+    <circle cx="20" cy="17" r="1.5" fill="#3c096c"/>
+  </svg>
+
+  <svg class="bfly bfly-6" viewBox="0 0 40 34" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M20 17 C10 5, 0 8, 4 16 C6 20, 14 20, 20 17 Z" fill="#e0aaff" opacity="0.95"/>
+    <path d="M20 17 C30 5, 40 8, 36 16 C34 20, 26 20, 20 17 Z" fill="#e0aaff" opacity="0.95"/>
+    <path d="M20 17 C13 24, 5 26, 7 20 C8 17, 15 17, 20 17 Z" fill="#7b2cbf" opacity="0.9"/>
+    <path d="M20 17 C27 24, 35 26, 33 20 C32 17, 25 17, 20 17 Z" fill="#7b2cbf" opacity="0.9"/>
+    <line x1="20" y1="10" x2="20" y2="24" stroke="#f3e9ff" stroke-width="1.2" stroke-linecap="round"/>
+    <circle cx="20" cy="17" r="1.5" fill="#5a189a"/>
+  </svg>
+
+</div>
+
+<div class="shell">
+  <header>
+    <div class="mark">
+      <h1>OTAKU HEARTS</h1>
+      <span>アニメ記録</span>
+    </div>
+    <p class="tally" id="tally"></p>
+    <div class="meter"><i id="meter"></i></div>
+  </header>
+
+  <nav role="tablist" aria-label="Filter">
+    <button role="tab" data-filter="all" aria-selected="true">My List</button>
+    <button role="tab" data-filter="pending" aria-selected="false">Watchlist</button>
+    <button role="tab" data-filter="done" aria-selected="false">Finished</button>
+  </nav>
+
+  <main>
+    <ul id="list"></ul>
+  </main>
+
+  <div class="bar">
+    <button type="button" id="openSheet">NEW ANIME</button>
+  </div>
+</div>
+
+<div class="scrim" id="scrim"></div>
+
+<form class="sheet" id="sheet" novalidate aria-hidden="true">
+  <div class="grab"></div>
+  <h2>New entry</h2>
+  <div class="cover-row">
+    <button type="button" class="cover-pick" id="coverPick" aria-label="Choose a cover image">+</button>
+    <div class="cover-note">
+      <b>Cover image</b>
+      <span id="coverHint"></span>
+      <button type="button" id="coverClear" hidden>Remove image</button>
+    </div>
+  </div>
+  <input type="file" id="coverFile" accept="image/*" hidden>
+  <div class="field">
+    <label for="t">Title</label>
+    <input id="t" type="text" placeholder="Frieren" autocomplete="off" enterkeyhint="next">
+  </div>
+  <div class="pair">
+    <div class="field">
+      <label for="e">Episodes</label>
+      <input id="e" type="number" inputmode="numeric" min="0" placeholder="28" enterkeyhint="next">
+    </div>
+    <div class="field">
+      <label for="s">Seasons</label>
+      <input id="s" type="number" inputmode="numeric" min="0" placeholder="1" enterkeyhint="done">
+    </div>
+  </div>
+  <div class="sheet-actions">
+    <button type="button" class="cancel" id="cancel">Cancel</button>
+    <button type="submit" class="save">Add to log</button>
+  </div>
+</form>
+
+<script>
+(() => {
+  'use strict';
+  const KEY = 'anime-log-v5';
+
+  const seed = [];
+
+  const uid = () => Date.now().toString(36) + Math.random().toString(36).slice(2, 7);
+
+  let items = (() => {
+    try {
+      const raw = localStorage.getItem(KEY);
+      if (raw) {
+        const parsed = JSON.parse(raw);
+        if (Array.isArray(parsed) && parsed.length) return parsed;
+      }
+    } catch (err) { }
+    return seed.map(s => ({ id: uid(), ...s }));
+  })();
+
+  let filter = 'all';
+  let pending = null;
+  let draftCover = null;
+  let coverTarget = null;
+
+  const save = () => {
+    try {
+      localStorage.setItem(KEY, JSON.stringify(items));
+    } catch (err) {
+      alert('Storage full – remove an image or entry and try again.');
+    }
+  };
+
+  const spine = (title) => {
+    let h = 0;
+    for (let i = 0; i < title.length; i++) h = (h * 31 + title.charCodeAt(i)) % 5;
+    return `var(--shelf-${h + 1})`;
+  };
+
+  const initial = (title) => {
+    const c = (title || '?').trim().charAt(0);
+    return c ? c.toUpperCase() : '?';
+  };
+
+  const shrink = (file) => new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.onerror = () => reject(new Error('read failed'));
+    reader.onload = () => {
+      const img = new Image();
+      img.onerror = () => reject(new Error('decode failed'));
+      img.onload = () => {
+        const W = 180, H = 250;
+        const canvas = document.createElement('canvas');
+        canvas.width = W; canvas.height = H;
+        const ctx = canvas.getContext('2d');
+        const scale = Math.max(W / img.width, H / img.height);
+        const w = img.width * scale, h = img.height * scale;
+        ctx.drawImage(img, (W - w) / 2, (H - h) / 2, w, h);
+        resolve(canvas.toDataURL('image/jpeg', 0.72));
+      };
+      img.src = reader.result;
+    };
+    reader.readAsDataURL(file);
+  });
+
+  const runtime = (a) => {
+    const bits = [];
+    if (a.seasons) bits.push(a.seasons + (a.seasons === 1 ? ' season' : ' seasons'));
+    if (a.episodes) bits.push(a.episodes + (a.episodes === 1 ? ' episode' : ' episodes'));
+    return bits.join(', ');
+  };
+
+  const $list   = document.getElementById('list');
+  const $tally  = document.getElementById('tally');
+  const $meter  = document.getElementById('meter');
+
+  function render() {
+    const total = items.length;
+    const done  = items.filter(a => a.watched).length;
+
+    $tally.innerHTML = total
+      ? `<b>${done}</b> of <b>${total}</b> watched, <b>${total - done}</b> waiting`
+      : 'Nothing logged yet';
+    $meter.style.width = total ? (done / total * 100) + '%' : '0%';
+
+    const view = items.filter(a =>
+      filter === 'all' ? true :
+      filter === 'done' ? a.watched : !a.watched
+    );
+
+    $list.innerHTML = '';
+
+    if (!view.length) {
+      const box  = document.createElement('div');
+      box.className = 'empty';
+      const head = document.createElement('b');
+      const note = document.createElement('span');
+      if (!total) {
+         head.textContent = 'Nothing logged yet';
+  note.textContent = 'Your watchlist is calling.';
+} else if (filter === 'done') {
+        head.textContent = 'Nothing finished yet';
+        note.textContent = 'Tick a show off once you reach the last episode.';
+      } else {
+        head.textContent = 'All caught up';
+        note.textContent = 'Everything on the shelf is watched.';
+      }
+      box.append(head, note);
+      $list.append(box);
+      return;
+    }
+
+    view.forEach(a => {
+      const li = document.createElement('li');
+      li.className = a.watched ? 'done' : '';
+      li.style.setProperty('--spine', spine(a.title));
+
+      const bar = document.createElement('div');
+      bar.className = 'spine';
+      li.append(bar);
+
+      if (pending === a.id) {
+        li.classList.add('confirming');
+        const wrap = document.createElement('div');
+        wrap.className = 'confirm';
+        const p = document.createElement('p');
+        p.textContent = 'Remove ' + a.title + '?';
+        const btns = document.createElement('div');
+
+        const keep = document.createElement('button');
+        keep.type = 'button';
+        keep.textContent = 'Keep';
+        keep.onclick = () => { pending = null; render(); };
+
+        const yes = document.createElement('button');
+        yes.type = 'button';
+        yes.className = 'yes';
+        yes.textContent = 'Remove';
+        yes.onclick = () => {
+          items = items.filter(x => x.id !== a.id);
+          pending = null;
+          save();
+          render();
+        };
+
+        btns.append(keep, yes);
+        wrap.append(p, btns);
+        li.append(wrap);
+        $list.append(li);
+        return;
+      }
+
+      const cover = document.createElement('button');
+      cover.type = 'button';
+      cover.className = 'cover';
+      cover.setAttribute('aria-label', (a.cover ? 'Change' : 'Add') + ' cover image for ' + a.title);
+      if (a.cover) {
+        const img = document.createElement('img');
+        img.src = a.cover;
+        img.alt = '';
+        cover.append(img);
+      } else {
+        cover.textContent = initial(a.title);
+      }
+      cover.onclick = () => { coverTarget = a.id; $file.click(); };
+      li.append(cover);
+
+      const body = document.createElement('div');
+      body.className = 'body';
+      const t = document.createElement('div');
+      t.className = 'title';
+      t.textContent = a.title;
+      body.append(t);
+
+      const r = runtime(a);
+      if (r) {
+        const meta = document.createElement('div');
+        meta.className = 'runtime';
+        meta.textContent = r;
+        body.append(meta);
+      }
+
+      const controls = document.createElement('div');
+      controls.className = 'controls';
+
+      const cwrap = document.createElement('div');
+      cwrap.className = 'check-wrap';
+      const check = document.createElement('button');
+      check.type = 'button';
+      check.className = 'check';
+      check.textContent = '✓';
+      check.setAttribute('aria-pressed', a.watched ? 'true' : 'false');
+      check.setAttribute('aria-label', 'Mark ' + a.title + ' as watched');
+      check.onclick = () => { a.watched = !a.watched; save(); render(); };
+      cwrap.append(check);
+
+      const drop = document.createElement('button');
+      drop.type = 'button';
+      drop.className = 'drop';
+      drop.textContent = '×';
+      drop.setAttribute('aria-label', 'Remove ' + a.title);
+      drop.onclick = () => { pending = a.id; render(); };
+
+      controls.append(cwrap, drop);
+      li.append(body, controls);
+      $list.append(li);
+    });
+  }
+
+  document.querySelectorAll('nav button').forEach(btn => {
+    btn.addEventListener('click', () => {
+      filter = btn.dataset.filter;
+      document.querySelectorAll('nav button').forEach(b =>
+        b.setAttribute('aria-selected', b === btn ? 'true' : 'false'));
+      pending = null;
+      render();
+    });
+  });
+
+  const $sheet  = document.getElementById('sheet');
+  const $scrim  = document.getElementById('scrim');
+  const $t      = document.getElementById('t');
+  const $e      = document.getElementById('e');
+  const $s      = document.getElementById('s');
+
+  const $file   = document.getElementById('coverFile');
+  const $pick   = document.getElementById('coverPick');
+  const $hint   = document.getElementById('coverHint');
+  const $clear  = document.getElementById('coverClear');
+
+  function paintPick() {
+    $pick.innerHTML = '';
+    if (draftCover) {
+      const img = document.createElement('img');
+      img.src = draftCover;
+      img.alt = '';
+      $pick.append(img);
+      $pick.classList.add('filled');
+      $hint.textContent = 'Tap the cover to swap it for another image.';
+      $clear.hidden = false;
+    } else {
+      const letter = $t && $t.value.trim() ? initial($t.value) : '+';
+      $pick.textContent = letter;
+      $pick.classList.remove('filled');
+      $hint.textContent = '';
+      $clear.hidden = true;
+    }
+  }
+
+  $pick.addEventListener('click', () => { coverTarget = null; $file.click(); });
+  $clear.addEventListener('click', () => { draftCover = null; paintPick(); });
+
+  $file.addEventListener('change', async () => {
+    const file = $file.files && $file.files[0];
+    $file.value = '';
+    if (!file) { coverTarget = null; return; }
+    try {
+      const data = await shrink(file);
+      if (coverTarget) {
+        const item = items.find(x => x.id === coverTarget);
+        if (item) { item.cover = data; save(); render(); }
+      } else {
+        draftCover = data;
+        paintPick();
+      }
+    } catch (err) {
+      $hint.textContent = 'That file could not be read. Try a JPG or PNG.';
+    }
+    coverTarget = null;
+  });
+
+  const openSheet = () => {
+    $sheet.classList.add('open');
+    $scrim.classList.add('open');
+    $sheet.setAttribute('aria-hidden', 'false');
+    paintPick();
+    setTimeout(() => $t.focus(), 120);
+  };
+
+  $t.addEventListener('input', () => { if (!draftCover) paintPick(); });
+
+  const closeSheet = () => {
+    $sheet.classList.remove('open');
+    $scrim.classList.remove('open');
+    $sheet.setAttribute('aria-hidden', 'true');
+    $sheet.reset();
+    draftCover = null;
+    paintPick();
+  };
+
+  document.getElementById('openSheet').addEventListener('click', openSheet);
+  document.getElementById('cancel').addEventListener('click', closeSheet);
+  $scrim.addEventListener('click', closeSheet);
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') closeSheet(); });
+
+  $sheet.addEventListener('submit', ev => {
+    ev.preventDefault();
+    const title = $t.value.trim();
+    if (!title) { $t.focus(); return; }
+    items.unshift({
+      id: uid(),
+      title,
+      episodes: $e.value !== '' ? Number($e.value) : null,
+      seasons:  $s.value !== '' ? Number($s.value)  : null,
+      cover:    draftCover,
+      watched:  false
+    });
+    save();
+    closeSheet();
+    if (filter === 'done') document.querySelector('nav button[data-filter="all"]').click();
+    else render();
+  });
+
+  render();
+})();
+</script>
+</body>
+</html>
